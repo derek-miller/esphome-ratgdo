@@ -90,7 +90,7 @@ class TestUpdateRefs:
 external_components:
   - source:
       type: git
-      url: https://github.com/ratgdo/esphome-ratgdo
+      url: https://github.com/derek-miller/esphome-ratgdo
       ref: main
     refresh: 1s
 """
@@ -120,7 +120,7 @@ external_components:
 external_components:
   - source:
       type: git
-      url: https://github.com/ratgdo/esphome-ratgdo
+      url: https://github.com/derek-miller/esphome-ratgdo
       ref: main
     refresh: 1s
 """
@@ -139,7 +139,7 @@ external_components:
         assert "type: local" in updated_content
         assert f"path: {tmp_path}/components" in updated_content
         assert "type: git" not in updated_content
-        assert "url: https://github.com/ratgdo/esphome-ratgdo" not in updated_content
+        assert "url: https://github.com/derek-miller/esphome-ratgdo" not in updated_content
         assert "ref: main" not in updated_content
 
     def test_update_remote_package_to_local_include(self, tmp_path):
@@ -147,7 +147,7 @@ external_components:
         yaml_content = """
 packages:
   remote_package:
-    url: https://github.com/ratgdo/esphome-ratgdo
+    url: https://github.com/derek-miller/esphome-ratgdo
     ref: main
     files: [base.yaml]
     refresh: 1s
@@ -166,14 +166,14 @@ packages:
         assert "packages:" in updated_content
         assert f"- !include {tmp_path}/base.yaml" in updated_content
         assert "remote_package:" not in updated_content
-        assert "url: https://github.com/ratgdo/esphome-ratgdo" not in updated_content
+        assert "url: https://github.com/derek-miller/esphome-ratgdo" not in updated_content
         assert "ref: main" not in updated_content
 
     def test_remove_dashboard_import_package_url(self, tmp_path):
         """Test removing package_import_url from dashboard_import."""
         yaml_content = """
 dashboard_import:
-  package_import_url: github://ratgdo/esphome-ratgdo/v2board.yaml@main
+  package_import_url: github://derek-miller/esphome-ratgdo/v2board.yaml@main
 """
         yaml_file = tmp_path / "test.yaml"
         yaml_file.write_text(yaml_content)
@@ -195,16 +195,16 @@ dashboard_import:
 external_components:
   - source:
       type: git
-      url: https://github.com/ratgdo/esphome-ratgdo
+      url: https://github.com/derek-miller/esphome-ratgdo
       ref: main
     refresh: 1s
 
 dashboard_import:
-  package_import_url: github://ratgdo/esphome-ratgdo/v25board.yaml@main
+  package_import_url: github://derek-miller/esphome-ratgdo/v25board.yaml@main
 
 packages:
   remote_package:
-    url: https://github.com/ratgdo/esphome-ratgdo
+    url: https://github.com/derek-miller/esphome-ratgdo
     ref: main
     files: [base.yaml]
     refresh: 1s
@@ -231,7 +231,7 @@ packages:
         assert f"- !include {tmp_path}/base.yaml" in updated_content
         assert "remote_package:" not in updated_content
         # Ensure no GitHub URLs remain for external_components
-        assert updated_content.count("github.com/ratgdo/esphome-ratgdo") == 0
+        assert updated_content.count("github.com/derek-miller/esphome-ratgdo") == 0
 
     def test_preserve_esphome_tags(self, tmp_path):
         """Test that ESPHome-specific tags are preserved."""
@@ -239,7 +239,7 @@ packages:
 external_components:
   - source:
       type: git
-      url: https://github.com/ratgdo/esphome-ratgdo
+      url: https://github.com/derek-miller/esphome-ratgdo
       ref: main
 
 button:

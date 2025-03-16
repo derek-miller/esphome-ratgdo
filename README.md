@@ -7,13 +7,13 @@ Purchase boards at [ratcloud.llc](https://ratcloud.llc).
 
 ## Web Installer
 
-Flash the ESPHome based firmware using the [Web Installer](https://ratgdo.github.io/esphome-ratgdo/).
+Flash the ESPHome based firmware using the [Web Installer](https://derek-miller.github.io/esphome-ratgdo/).
 
 ## First use after adding to Home Assistant
 
 The ESPHome firmware will allow you to open the door to any position after calibration. To calibrate the door, open and close it once without stopping.
 
-<img width="560" alt="position_demo" src="https://github.com/RATGDO/esphome-ratgdo/assets/663432/22a9873e-67bb-4b2f-bb32-70047cfe666d">
+<img width="560" alt="position_demo" src="https://github.com/derek-miller/esphome-ratgdo/assets/663432/22a9873e-67bb-4b2f-bb32-70047cfe666d">
 
 ## ESPHome configs
 

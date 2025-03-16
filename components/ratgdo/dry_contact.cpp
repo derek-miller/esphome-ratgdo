@@ -91,14 +91,14 @@ namespace dry_contact {
 
     void DryContact::door_action(DoorAction action)
     {
-        if (action == DoorAction::OPEN && this->limits_.open_limit_reached) {
-            ESP_LOGW(TAG, "The door is already fully open. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
-            return;
-        }
-        if (action == DoorAction::CLOSE && this->limits_.close_limit_reached) {
-            ESP_LOGW(TAG, "The door is already fully closed. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
-            return;
-        }
+        //if (action == DoorAction::OPEN && this->limits_.open_limit_reached) {
+        //    ESP_LOGW(TAG, "The door is already fully open. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
+        //    return;
+        //}
+        //if (action == DoorAction::CLOSE && this->limits_.close_limit_reached) {
+        //    ESP_LOGW(TAG, "The door is already fully closed. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
+        //    return;
+        //}
 
         ESP_LOG1(TAG, "Door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
 
@@ -116,10 +116,12 @@ namespace dry_contact {
             });
         }
 
+    if (action == DoorAction::STOP) {
         this->tx_pin_->digital_write(1); // Single button control
         this->ratgdo_->set_timeout(500, [this] {
             this->tx_pin_->digital_write(0);
         });
+    }
     }
 
     Result DryContact::call(Args args)
