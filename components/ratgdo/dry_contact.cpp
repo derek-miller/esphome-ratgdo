@@ -92,14 +92,14 @@ namespace ratgdo {
 
         void DryContact::door_action(DoorAction action)
         {
-            if (action == DoorAction::OPEN && this->door_state_ != DoorState::CLOSED) {
-                ESP_LOGW(TAG, "The door is not closed. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
-                return;
-            }
-            if (action == DoorAction::CLOSE && this->door_state_ != DoorState::OPEN) {
-                ESP_LOGW(TAG, "The door is not open. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
-                return;
-            }
+            //if (action == DoorAction::OPEN && this->door_state_ != DoorState::CLOSED) {
+            //    ESP_LOGW(TAG, "The door is not closed. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
+            //    return;
+            //}
+            //if (action == DoorAction::CLOSE && this->door_state_ != DoorState::OPEN) {
+            //    ESP_LOGW(TAG, "The door is not open. Ignoring door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
+            //    return;
+            //}
 
             ESP_LOG1(TAG, "Door action: %s", LOG_STR_ARG(DoorAction_to_string(action)));
 
@@ -117,10 +117,12 @@ namespace ratgdo {
                 });
             }
 
-            this->tx_pin_->digital_write(1); // Single button control
-            this->scheduler_->set_timeout(this->ratgdo_, "", 500, [this] {
-                this->tx_pin_->digital_write(0);
-            });
+            if (action == DoorAction::STOP) {
+                this->tx_pin_->digital_write(1); // Single button control
+                this->scheduler_->set_timeout(this->ratgdo_, "", 500, [this] {
+                    this->tx_pin_->digital_write(0);
+                });
+            }
         }
 
         Result DryContact::call(Args args)
