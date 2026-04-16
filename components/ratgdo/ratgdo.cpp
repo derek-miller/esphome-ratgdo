@@ -642,12 +642,7 @@ void RATGDOComponent::door_close()
         return;
     }
 
-    if (this->flags_.obstruction_sensor_detected) {
-        this->door_action(DoorAction::CLOSE);
-    } else if (*this->door_state == DoorState::OPEN) {
-        ESP_LOGD(TAG, "No obstruction sensors detected. Close using TOGGLE.");
-        this->door_action(DoorAction::TOGGLE);
-    }
+    this->door_action(DoorAction::CLOSE);
 
     if (*this->closing_duration > 0) {
         // query state in case we don't get a status message
@@ -665,10 +660,6 @@ void RATGDOComponent::door_close()
 
 void RATGDOComponent::door_stop()
 {
-    if (*this->door_state != DoorState::OPENING && *this->door_state != DoorState::CLOSING) {
-        ESP_LOGW(TAG, "The door is not moving.");
-        return;
-    }
     this->door_action(DoorAction::STOP);
 }
 

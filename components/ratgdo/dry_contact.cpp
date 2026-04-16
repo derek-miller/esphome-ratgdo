@@ -107,6 +107,7 @@ namespace dry_contact {
             this->ratgdo_->set_timeout(500, [this] {
                 this->discrete_open_pin_->digital_write(0);
             });
+            return;
         }
 
         if (action == DoorAction::CLOSE && this->discrete_close_pin_ != nullptr) {
@@ -114,12 +115,15 @@ namespace dry_contact {
             this->ratgdo_->set_timeout(500, [this] {
                 this->discrete_close_pin_->digital_write(0);
             });
+            return;
         }
 
-        this->tx_pin_->digital_write(1); // Single button control
-        this->ratgdo_->set_timeout(500, [this] {
-            this->tx_pin_->digital_write(0);
-        });
+        if (action == DoorAction::STOP) {
+            this->tx_pin_->digital_write(1); // Single button control
+            this->ratgdo_->set_timeout(500, [this] {
+                this->tx_pin_->digital_write(0);
+            });
+        }
     }
 
     Result DryContact::call(Args args)
